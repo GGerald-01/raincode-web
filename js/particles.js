@@ -13,10 +13,10 @@
     var ctx = canvas.getContext('2d');
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    var PARTICLE_COUNT = 100;
+    var PARTICLE_COUNT = 120;
     var MAX_VEL = 0.15;
     var LINK_DIST = 120;
-    var MOUSE_RADIUS = 80;
+    var MOUSE_RADIUS = 100;
     var MOUSE_FORCE = 0.8;
     var COLOR = 'rgba(56,204,128,0.4)';
     var LINK_COLOR = 'rgba(56,204,128,0.08)';
@@ -32,9 +32,17 @@
     function rand(min, max) { return min + Math.random() * (max - min); }
 
     function resize() {
-      var rect = canvas.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
+      // Read the parent (#hero) dimensions instead of the canvas'
+      // own getBoundingClientRect(), which can report stale/zero
+      // values before layout has fully painted.
+      var parent = canvas.parentElement;
+      width = (parent && parent.clientWidth) || window.innerWidth;
+      height = (parent && parent.clientHeight) || window.innerHeight;
+
+      // Force the CSS box to fill the hero, then size the backing
+      // store with the device pixel ratio.
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -48,7 +56,7 @@
           y: Math.random() * height,
           vx: rand(-MAX_VEL, MAX_VEL),
           vy: rand(-MAX_VEL, MAX_VEL),
-          r: 1.5
+          r: rand(1.2, 2.2)
         });
       }
     }
@@ -130,22 +138,31 @@
       mouse.y = e.touches[0].clientY - rect.top;
     }
 
+    // Immediate sizing so the canvas is never zero-sized.
     resize();
     seed();
 
-    window.addEventListener('resize', function () { resize(); });
+    // Recompute on window resize and re-seed across the new area.
+    window.addEventListener('resize', function () { resize(); seed(); });
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseout', onMouseLeave);
     window.addEventListener('touchmove', onTouchMove, { passive: true });
     window.addEventListener('touchend', onMouseLeave);
 
-    if (reduceMotion) {
-      // Draw a single static frame, no animation loop.
-      step();
-      if (rafId) cancelAnimationFrame(rafId);
-    } else {
-      step();
-    }
+    // Second pass inside rAF: by the time the first animation frame
+    // runs, the hero layout is fully painted, so we get the correct
+    // full-screen dimensions before the loop starts.
+    requestAnimationFrame(function () {
+      resize();
+      seed();
+      if (reduceMotion) {
+        // Draw a single static frame, no animation loop.
+        step();
+        if (rafId) cancelAnimationFrame(rafId);
+      } else {
+        step();
+      }
+    });
   }
 
   window.initParticles = initParticles;
