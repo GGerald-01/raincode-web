@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 80" width="60" height="80" role="img" aria-label="RainCode logo">
+  <defs>
+    <linearGradient id="rc-grad" x1="30" y1="2" x2="30" y2="78" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38CC80"/>
+      <stop offset="1" stop-color="#1A3A6A"/>
+    </linearGradient>
+  </defs>
+  <!-- Water droplet silhouette -->
+  <path d="M30 2 C30 2 4 32 4 52 a26 26 0 0 0 52 0 C56 32 30 2 30 2 Z" fill="url(#rc-grad)"/>
+  <!-- House rooftop (triangle peak) in upper half -->
+  <path d="M16 40 L30 27 L44 40" fill="none" stroke="#080F08" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Horizontal wave at bottom -->
+  <path d="M14 58 q6 -5 12 0 t12 0" fill="none" stroke="#080F08" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

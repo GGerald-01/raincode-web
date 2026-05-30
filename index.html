@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RainCode — Sistema de cosecha de agua lluvia | Chile</title>
+  <meta name="description" content="Captura el agua de lluvia de tu techo con RainCode. Sistema modular, fácil instalación, monitoreo por app. Top 60 de 1.808 proyectos Innova Sostenible 2026.">
+  <meta name="theme-color" content="#080F08">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RainCode — Sistema de cosecha de agua lluvia | Chile">
+  <meta property="og:description" content="Captura el agua de lluvia de tu techo con RainCode. Sistema modular, fácil instalación, monitoreo por app. Top 60 de 1.808 proyectos Innova Sostenible 2026.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav id="navbar">
+    <div class="nav-inner container">
+      <a href="#hero" class="logo" aria-label="RainCode inicio">
+        <img src="assets/logo.svg" alt="RainCode logo" width="32" height="42">
+        <span class="wordmark">Rain<span class="accent">Code</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="#problema">Problema</a>
+        <a href="#solucion">Solución</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#prototipo-3d">Prototipo 3D</a>
+        <a href="#impacto">Impacto</a>
+        <a href="#equipo">Equipo</a>
+      </div>
+      <a href="#" class="cta-btn">Ver app →</a>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="7" x2="21" y2="7"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="17" x2="21" y2="17"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <button class="mobile-close" id="mobile-close" aria-label="Cerrar menú">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="6" y1="6" x2="18" y2="18"/>
+        <line x1="18" y1="6" x2="6" y2="18"/>
+      </svg>
+    </button>
+    <a href="#problema">Problema</a>
+    <a href="#solucion">Solución</a>
+    <a href="#como-funciona">Cómo funciona</a>
+    <a href="#prototipo-3d">Prototipo 3D</a>
+    <a href="#impacto">Impacto</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#" class="cta-btn">Ver app →</a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section id="hero">
+    <canvas id="particles-canvas"></canvas>
+    <div class="hero-content container">
+      <span class="trust-badge">🏆 Top 60 de 1.808 proyectos — Innova Sostenible 2026</span>
+      <h1>El agua de lluvia<br>que pierdes vale más<br><span class="accent">de lo que crees.</span></h1>
+      <p class="subheadline">Chile lleva 15 años con megasequía. Cada invierno, miles de litros caen sobre tu techo y se van por las alcantarillas. RainCode los captura, los filtra y los pone a tu disposición.</p>
+      <div class="btn-group">
+        <a href="#como-funciona" class="btn-primary">Ver cómo funciona</a>
+        <a href="#prototipo-3d" class="btn-secondary">Explorar prototipo 3D →</a>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-number">1.808</div>
+          <div class="stat-label">proyectos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">Top 3.3%</div>
+          <div class="stat-label">seleccionados</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">Valparaíso</div>
+          <div class="stat-label">región</div>
+        </div>
+      </div>
+    </div>
+    <a href="#problema" class="scroll-indicator" aria-label="Bajar">
+      <span>Descubre más</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ============ PROBLEMA ============ -->
+  <section id="problema">
+    <div class="container">
+      <div class="section-label reveal"><span class="label-line"></span><span>EL PROBLEMA</span><span class="label-line"></span></div>
+      <h2 class="section-headline reveal">Una paradoja hídrica sobre tu techo</h2>
+      <p class="section-subtext reveal">Mientras Chile enfrenta la peor sequía de su historia reciente, el agua dulce cae literalmente sobre nuestras cabezas y la dejamos escapar.</p>
+
+      <div class="problem-grid">
+        <article class="card reveal">
+          <div class="card-icon">💧</div>
+          <h3>Lluvia desperdiciada</h3>
+          <p>345mm/año en Valparaíso. El 80% en 4 meses de invierno. Todo termina en las alcantarillas sin ser aprovechado.</p>
+          <span class="badge badge-blue">345mm/año</span>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">🚛</div>
+          <h3>Crisis hídrica real</h3>
+          <p>Más de 71.000 personas dependen de camiones aljibe en la región, pagando hasta $80.000 mensuales. Fuente: MOP / DGA.</p>
+          <span class="badge badge-red">71.000 personas</span>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">💸</div>
+          <h3>Soluciones inaccesibles</h3>
+          <p>Los sistemas existentes parten desde $500.000 y requieren instalación técnica especializada.</p>
+          <span class="badge badge-amber">+$500.000</span>
+        </article>
+      </div>
+
+      <div class="stats-bar reveal">
+        <div class="stats-bar-item">
+          <div class="stats-bar-num counter" data-target="70" data-suffix="%">0</div>
+          <div class="stats-bar-label">Déficit precipitaciones CR2</div>
+        </div>
+        <div class="stats-bar-item">
+          <div class="stats-bar-num counter" data-target="15" data-suffix=" años">0</div>
+          <div class="stats-bar-label">Megasequía continua</div>
+        </div>
+        <div class="stats-bar-item">
+          <div class="stats-bar-num counter" data-prefix="$" data-target="80000">0</div>
+          <div class="stats-bar-label">Gasto mensual aljibe</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOLUCION ============ -->
+  <section id="solucion">
+    <div class="container">
+      <div class="section-label reveal"><span class="label-line"></span><span>LA SOLUCIÓN</span><span class="label-line"></span></div>
+      <h2 class="section-headline reveal">RainCode — simple, modular, tuyo</h2>
+      <p class="section-subtext reveal">Un sistema pensado para que cualquier persona, sin conocimientos técnicos, transforme su techo en una fuente de agua.</p>
+
+      <!-- Feature 1 -->
+      <div class="feature reveal">
+        <div class="feature-text">
+          <h3>Instala en menos de 60 minutos</h3>
+          <p>Se conecta al canalón existente de cualquier techo. Sin herramientas especiales, sin obra civil, sin técnicos.</p>
+          <span class="chip">⏱ &lt; 60 min · 🔧 Sin herramientas · 🏗 Sin obra</span>
+        </div>
+        <div class="feature-visual">
+          <svg viewBox="0 0 400 220" class="feat-svg" role="img" aria-label="Tres pasos de instalación">
+            <g font-family="Inter, sans-serif">
+              <circle cx="60" cy="80" r="34" fill="rgba(56,204,128,0.1)" stroke="#38CC80" stroke-width="2"/>
+              <text x="60" y="88" text-anchor="middle" font-size="28" font-weight="800" fill="#38CC80">1</text>
+              <text x="60" y="140" text-anchor="middle" font-size="13" fill="#F0EDE4">Canalón</text>
+              <path d="M104 80 H146" stroke="#38CC80" stroke-width="2" marker-end="url(#arrow)"/>
+
+              <circle cx="200" cy="80" r="34" fill="rgba(56,204,128,0.1)" stroke="#38CC80" stroke-width="2"/>
+              <text x="200" y="88" text-anchor="middle" font-size="28" font-weight="800" fill="#38CC80">2</text>
+              <text x="200" y="140" text-anchor="middle" font-size="13" fill="#F0EDE4">Conectar módulo</text>
+              <path d="M244 80 H286" stroke="#38CC80" stroke-width="2" marker-end="url(#arrow)"/>
+
+              <circle cx="340" cy="80" r="34" fill="rgba(56,204,128,0.15)" stroke="#38CC80" stroke-width="2"/>
+              <text x="340" y="90" text-anchor="middle" font-size="30" font-weight="800" fill="#38CC80">✓</text>
+              <text x="340" y="140" text-anchor="middle" font-size="13" fill="#F0EDE4">Listo</text>
+            </g>
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0 0 L8 4 L0 8 Z" fill="#38CC80"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature reveal">
+        <div class="feature-text">
+          <h3>Filtración en 3 etapas</h3>
+          <p>Malla de desbaste, cartucho de sedimentos 5µ y carbón activado. Agua limpia para riego, sanitarios y limpieza.</p>
+          <span class="chip">🌊 Malla · Sedimentos · Carbón</span>
+        </div>
+        <div class="feature-visual">
+          <svg viewBox="0 0 360 240" class="feat-svg" role="img" aria-label="Corte transversal del filtro de tres capas">
+            <g font-family="Inter, sans-serif">
+              <rect x="90" y="20" width="180" height="200" rx="12" fill="rgba(15,31,15,0.6)" stroke="rgba(56,204,128,0.3)" stroke-width="1.5"/>
+              <!-- drops -->
+              <circle cx="160" cy="14" r="4" fill="#6aaad0"/>
+              <circle cx="200" cy="8" r="4" fill="#6aaad0"/>
+              <!-- layer 1 -->
+              <rect x="100" y="40" width="160" height="46" rx="6" fill="rgba(56,204,128,0.14)"/>
+              <text x="180" y="68" text-anchor="middle" font-size="13" fill="#F0EDE4">Malla desbaste</text>
+              <!-- layer 2 -->
+              <rect x="100" y="98" width="160" height="46" rx="6" fill="rgba(26,58,106,0.3)"/>
+              <text x="180" y="126" text-anchor="middle" font-size="13" fill="#F0EDE4">Sedimentos 5µ</text>
+              <!-- layer 3 -->
+              <rect x="100" y="156" width="160" height="46" rx="6" fill="rgba(20,20,20,0.55)"/>
+              <text x="180" y="184" text-anchor="middle" font-size="13" fill="#F0EDE4">Carbón activado</text>
+              <!-- clean drop -->
+              <circle cx="180" cy="226" r="5" fill="#38CC80"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature reveal">
+        <div class="feature-text">
+          <h3>Monitoreo inteligente</h3>
+          <p>Sensor ultrasónico Bluetooth conectado a la app RainCode. Nivel en tiempo real, pronóstico de lluvia de la DMC, calidad del agua y riesgo de incendio en verano.</p>
+          <span class="chip">📱 Nivel · Calidad · Lluvia · Incendio</span>
+        </div>
+        <div class="feature-visual">
+          <svg viewBox="0 0 240 300" class="feat-svg phone-mock" role="img" aria-label="Maqueta de la app RainCode">
+            <rect x="40" y="10" width="160" height="280" rx="24" fill="#0F1F0F" stroke="rgba(56,204,128,0.3)" stroke-width="2"/>
+            <rect x="52" y="28" width="136" height="244" rx="14" fill="#080F08"/>
+            <g font-family="Inter, sans-serif">
+              <!-- gauge -->
+              <circle cx="120" cy="100" r="44" fill="none" stroke="rgba(56,204,128,0.15)" stroke-width="9"/>
+              <circle cx="120" cy="100" r="44" fill="none" stroke="#38CC80" stroke-width="9" stroke-linecap="round" stroke-dasharray="276" stroke-dashoffset="88" transform="rotate(-90 120 100)"/>
+              <text x="120" y="106" text-anchor="middle" font-size="24" font-weight="800" fill="#F0EDE4">68%</text>
+              <!-- mini bar chart -->
+              <rect x="70" y="180" width="12" height="22" rx="2" fill="rgba(56,204,128,0.5)"/>
+              <rect x="90" y="170" width="12" height="32" rx="2" fill="rgba(56,204,128,0.6)"/>
+              <rect x="110" y="158" width="12" height="44" rx="2" fill="#38CC80"/>
+              <rect x="130" y="174" width="12" height="28" rx="2" fill="rgba(56,204,128,0.6)"/>
+              <rect x="150" y="186" width="12" height="16" rx="2" fill="rgba(56,204,128,0.5)"/>
+              <text x="120" y="222" text-anchor="middle" font-size="10" fill="#7A9A7A">Pronóstico lluvia</text>
+              <!-- fire risk badge -->
+              <rect x="74" y="238" width="92" height="24" rx="12" fill="rgba(56,204,128,0.12)" stroke="#38CC80" stroke-width="1"/>
+              <text x="120" y="254" text-anchor="middle" font-size="11" fill="#38CC80">🔥 Riesgo: BAJO</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMO FUNCIONA ============ -->
+  <section id="como-funciona">
+    <div class="container">
+      <div class="section-label reveal"><span class="label-line"></span><span>CÓMO FUNCIONA</span><span class="label-line"></span></div>
+      <h2 class="section-headline reveal">Del techo al grifo en 5 pasos</h2>
+      <p class="section-subtext reveal">Un ciclo simple y autónomo que convierte cada tormenta en reserva útil para tu hogar.</p>
+
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-icon">🌧️</div>
+          <h4>Lluvia cae</h4>
+          <p>El agua se acumula en el techo y baja por el canalón.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-icon">🔽</div>
+          <h4>Filtración</h4>
+          <p>Pasa por las 3 etapas de filtrado del módulo.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-icon">💾</div>
+          <h4>Almacenamiento</h4>
+          <p>Se guarda en el estanque modular de 50L ampliable.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-icon">📱</div>
+          <h4>Monitoreo</h4>
+          <p>El sensor reporta nivel y calidad a la app.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-icon">✅</div>
+          <h4>Uso</h4>
+          <p>Agua disponible en la válvula para uso diario.</p>
+        </div>
+      </div>
+
+      <div class="callout reveal">
+        <span class="badge badge-blue">MÓDULO COMPLEMENTARIO</span>
+        <h3>RC Pure — Purificación avanzada</h3>
+        <p>Membrana UF 0,01µm + UV-C. Parámetros OMS para agua potable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROTOTIPO 3D ============ -->
+  <section id="prototipo-3d">
+    <div class="container">
+      <div class="section-label reveal"><span class="label-line"></span><span>PROTOTIPO 3D</span><span class="label-line"></span></div>
+      <h2 class="section-headline reveal">Explora el RainCode en detalle</h2>
+      <p class="section-subtext reveal">Arrastra para rotar · Scroll para zoom · Botones para cambiar vista</p>
+
+      <div id="model-container" class="reveal">
+        <div id="labels-overlay"></div>
+        <div class="model-controls">
+          <div class="view-buttons">
+            <button data-view="frontal">Frontal</button>
+            <button data-view="lateral">Lateral</button>
+            <button data-view="superior">Superior</button>
+            <button data-view="isometrica" class="active">Isométrica</button>
+          </div>
+          <div class="toggle-group">
+            <label><input type="checkbox" id="toggle-rotate" checked> Auto-rotar</label>
+            <label><input type="checkbox" id="toggle-labels" checked> Etiquetas</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ IMPACTO ============ -->
+  <section id="impacto">
+    <div class="container">
+      <div class="section-label reveal"><span class="label-line"></span><span>IMPACTO</span><span class="label-line"></span></div>
+      <h2 class="section-headline reveal">Números que importan</h2>
+      <p class="section-subtext reveal">Resultados medibles para tu bolsillo y para el planeta.</p>
+
+      <div class="impact-grid reveal">
+        <div class="impact-item">
+          <div class="impact-num">500–2.000</div>
+          <div class="impact-label">Litros captados por temporada</div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-num counter" data-target="40" data-suffix="%">0</div>
+          <div class="impact-label">Ahorro en consumo doméstico</div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-num counter" data-prefix="$" data-target="240000">0</div>
+          <div class="impact-label">Ahorro anual estimado por hogar</div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-num">&lt;$150.000</div>
+          <div class="impact-label">Precio objetivo módulo base</div>
+        </div>
+      </div>
+
+      <div class="table-wrap reveal">
+        <table class="comparison">
+          <thead>
+            <tr>
+              <th>Característica</th>
+              <th class="rc-col">RainCode <span class="badge badge-green">Recomendado</span></th>
+              <th>Sistema tradicional</th>
+              <th>Sin sistema</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Precio</td><td class="rc-col">$150.000</td><td>$500.000+</td><td>$0</td></tr>
+            <tr><td>Instalación</td><td class="rc-col">60 min</td><td>Días</td><td>—</td></tr>
+            <tr><td>Monitoreo</td><td class="rc-col">App incluida</td><td>No</td><td>—</td></tr>
+            <tr><td>Ahorro/mes</td><td class="rc-col">~$20.000</td><td>~$15.000</td><td>$0</td></tr>
+            <tr><td>Material</td><td class="rc-col">HDPE reciclado</td><td>Plástico nuevo</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="enviro-row reveal">
+        <div class="enviro-item"><span>💧</span><p>1.840L/temporada rescatados</p></div>
+        <div class="enviro-item"><span>🌱</span><p>0,38kg CO₂ evitado por m³</p></div>
+        <div class="enviro-item"><span>♻️</span><p>HDPE 100% reciclado post-consumo</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPO ============ -->
+  <section id="equipo">
+    <div class="container">
+      <div class="section-label reveal"><span class="label-line"></span><span>EL EQUIPO</span><span class="label-line"></span></div>
+      <h2 class="section-headline reveal">Quiénes somos</h2>
+
+      <div class="team-layout">
+        <div class="team-text reveal">
+          <p>Somos Gerald y Mabel, estudiantes de Publicidad de Duoc UC sede Viña del Mar. RainCode nació de vivir en una región donde la escasez hídrica es una realidad cotidiana.</p>
+          <p>Nuestra formación en comunicación y diseño nos permite crear soluciones comprensibles para personas sin conocimientos técnicos.</p>
+          <div class="avatars">
+            <div class="avatar-block"><div class="avatar">G</div><span>Gerald</span></div>
+            <div class="avatar-block"><div class="avatar">M</div><span>Mabel</span></div>
+          </div>
+          <div class="team-badges">
+            <span class="badge badge-green">🏆 Top 60 de 1.808 — Innova Sostenible 2026</span>
+            <span class="badge badge-blue">🎓 Duoc UC — Publicidad</span>
+            <span class="badge badge-amber">📍 Viña del Mar, Chile</span>
+          </div>
+        </div>
+        <div class="team-timeline reveal">
+          <ul class="timeline">
+            <li><span class="tl-date">2026 Mar</span><span class="tl-text">Idea original en Viña del Mar</span></li>
+            <li><span class="tl-date">2026 Abr</span><span class="tl-text">Postulación Innova Sostenible 2026</span></li>
+            <li><span class="tl-date">2026 May</span><span class="tl-text">Seleccionados entre 1.808 proyectos</span></li>
+            <li><span class="tl-date">2026 Jun</span><span class="tl-text">Etapa de formación específica</span></li>
+            <li><span class="tl-date">2026 Ago</span><span class="tl-text">Demo Day Final — objetivo</span></li>
+            <li><span class="tl-date">2026 Dic</span><span class="tl-text">Prototipo físico v1 — objetivo</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#hero" class="logo">
+          <img src="assets/logo.svg" alt="RainCode logo" width="28" height="37">
+          <span class="wordmark">Rain<span class="accent">Code</span></span>
+        </a>
+        <p class="footer-tagline">Del techo al grifo</p>
+        <p class="footer-desc">Sistema modular de cosecha de agua lluvia</p>
+      </div>
+      <nav class="footer-links" aria-label="Enlaces rápidos">
+        <a href="#problema">Problema</a>
+        <a href="#solucion">Solución</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#prototipo-3d">Prototipo 3D</a>
+        <a href="#impacto">Impacto</a>
+        <a href="#equipo">Equipo</a>
+      </nav>
+      <div class="footer-contact">
+        <p>📧 hola@raincode.cl</p>
+        <p>🌐 raincode.cl</p>
+        <p>🏆 Innova Sostenible 2026</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RainCode — Viña del Mar, Chile</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
