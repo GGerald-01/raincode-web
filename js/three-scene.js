@@ -39,7 +39,7 @@
     scene.fog = new THREE.FogExp2(0x080F08, 0.022);
 
     var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-    camera.position.set(0, 2.0, 6.5);
+    camera.position.set(0, 1.8, 5.2);
     camera.lookAt(0, 1.2, 0);
 
     // ============================================================
@@ -48,11 +48,11 @@
     scene.add(new THREE.AmbientLight(0x1a2a1a, 0.55));
 
     // Overcast daylight key — cold
-    var key = new THREE.DirectionalLight(0xd0e8ff, 1.1);
+    var key = new THREE.DirectionalLight(0xd0e8ff, 1.4);
     key.position.set(-3, 8, 5);
     key.castShadow = true;
-    key.shadow.mapSize.set(1024, 1024);
-    key.shadow.bias = -0.0003;
+    key.shadow.mapSize.set(2048, 2048);
+    key.shadow.bias = -0.0002;
     key.shadow.camera.near = 1;
     key.shadow.camera.far = 40;
     key.shadow.camera.left = -6;
@@ -123,39 +123,39 @@
     // ============================================================
     // WALL / CONTEXT — large, dark, the module is anchored to it
     // ============================================================
-    scene.add(mesh(new THREE.BoxGeometry(7.0, 9.0, 0.12), M.wall, { pos: [0, 0.5, -0.95], receive: true }));
+    scene.add(mesh(new THREE.BoxGeometry(9.0, 9.0, 0.12), M.wall, { pos: [0, 0.5, -0.95], receive: true }));
     // Faux stucco horizontal grain lines (10, every 0.72)
     for (var wl = 0; wl < 10; wl++) {
-      scene.add(mesh(new THREE.BoxGeometry(7.0, 0.006, 0.006), M.wallLine, { pos: [0, -3.0 + wl * 0.72, -0.88] }));
+      scene.add(mesh(new THREE.BoxGeometry(9.0, 0.006, 0.006), M.wallLine, { pos: [0, -3.0 + wl * 0.72, -0.88] }));
     }
     // Base socle
-    scene.add(mesh(new THREE.BoxGeometry(7.0, 0.4, 0.22), M.socle, { pos: [0, -3.2, -0.85], receive: true }));
+    scene.add(mesh(new THREE.BoxGeometry(9.0, 0.4, 0.22), M.socle, { pos: [0, -3.2, -0.85], receive: true }));
 
     // ============================================================
     // HORIZONTAL GUTTER — main context element, runs along the wall
     // ============================================================
-    // Lying cylinder along the top of the wall — lower and tight to wall
+    // Lying cylinder along the top of the wall
     scene.add(mesh(new THREE.CylinderGeometry(0.14, 0.14, 5.5, 20),
       new THREE.MeshStandardMaterial({ color: 0x7a8288, roughness: 0.55, metalness: 0.3 }),
-      { pos: [0, 3.2, -0.55], rot: [0, 0, Math.PI / 2], cast: true }));
+      { pos: [0, 3.55, -0.55], rot: [0, 0, Math.PI / 2], cast: true }));
     // End caps
     scene.add(mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.04, 20),
       new THREE.MeshStandardMaterial({ color: 0x606870, roughness: 0.55, metalness: 0.3 }),
-      { pos: [-2.75, 3.2, -0.55], rot: [0, 0, Math.PI / 2] }));
+      { pos: [-2.75, 3.55, -0.55], rot: [0, 0, Math.PI / 2] }));
     scene.add(mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.04, 20),
       new THREE.MeshStandardMaterial({ color: 0x606870, roughness: 0.55, metalness: 0.3 }),
-      { pos: [2.75, 3.2, -0.55], rot: [0, 0, Math.PI / 2] }));
+      { pos: [2.75, 3.55, -0.55], rot: [0, 0, Math.PI / 2] }));
     // Gutter wall brackets — touch the wall
     var gBracketMat = new THREE.MeshStandardMaterial({ color: 0x606870, roughness: 0.55, metalness: 0.3 });
     [-1.8, 0.3, 1.8].forEach(function (gx) {
-      scene.add(mesh(new THREE.BoxGeometry(0.06, 0.35, 0.65), gBracketMat, { pos: [gx, 3.2, -0.72] }));
+      scene.add(mesh(new THREE.BoxGeometry(0.06, 0.35, 0.65), gBracketMat, { pos: [gx, 3.55, -0.72] }));
     });
-    // Vertical downpipe from the gutter — slightly right of center
-    scene.add(mesh(new THREE.CylinderGeometry(0.085, 0.085, 1.2, 16),
+    // Vertical downpipe from the gutter — visible drop to the module
+    scene.add(mesh(new THREE.CylinderGeometry(0.085, 0.085, 1.8, 16),
       new THREE.MeshStandardMaterial({ color: 0x8a9098, roughness: 0.55, metalness: 0.2 }),
-      { pos: [0.3, 2.35, -0.3], cast: true }));
+      { pos: [0.0, 2.65, -0.3], cast: true }));
     // Elbow into the module
-    scene.add(mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.55, 12), M.pvc, { pos: [0.15, 1.75, 0.05], rot: [0.6, 0, -0.15], cast: true }));
+    scene.add(mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.55, 12), M.pvc, { pos: [0.0, 1.72, 0.05], rot: [0.55, 0, 0], cast: true }));
 
     // ============================================================
     // MOUNTING BRACKETS — module is bolted to the wall
@@ -170,7 +170,7 @@
     // BASE MODULE GROUP
     // ============================================================
     var baseModule = new THREE.Group();
-    baseModule.position.set(0, 1.6, 0.25);
+    baseModule.position.set(0, 1.6, 0.45);
     var baseBaseY = 1.6;
 
     var W = 1.4, H = 2.4, D = 1.12;
@@ -279,7 +279,7 @@
     // CONNECTOR — visually bridge base & RC Pure (tight gap)
     // ============================================================
     var connector = new THREE.Group();
-    connector.position.set(0, 0.8, 0.25);
+    connector.position.set(0, 0.8, 0.45);
     connector.add(mesh(new THREE.BoxGeometry(0.28, 0.22, 0.28), M.hdpeDark));
     connector.add(mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.24, 16), M.accent));
     connector.add(mesh(new THREE.TorusGeometry(0.15, 0.025, 8, 20), M.epdm, { pos: [0, 0.12, 0], rot: [Math.PI / 2, 0, 0] }));
@@ -292,7 +292,7 @@
     // RC PURE MODULE GROUP — pulled up tight against the base
     // ============================================================
     var pureModule = new THREE.Group();
-    pureModule.position.set(0, 0.18, 0.25);
+    pureModule.position.set(0, 0.18, 0.45);
 
     var PW = 1.25, PH = 0.85, PD = 1.05;
     pureModule.add(mesh(new THREE.BoxGeometry(PW, PH, PD), M.navy, { cast: true, receive: true }));
@@ -398,7 +398,7 @@
     // CONTROLS (spherical orbit)
     // ============================================================
     var target = new THREE.Vector3(0, 1.5, 0);
-    var sph = { radius: 8.5, theta: Math.atan2(6, 4), phi: 1.1 };
+    var sph = { radius: 7.2, theta: Math.atan2(5, 3), phi: 1.05 };
     var autoRotate = !reduceMotion;
 
     var dragging = false, lastX = 0, lastY = 0;
@@ -433,10 +433,10 @@
     }, { passive: false });
 
     var views = {
-      frontal:    { theta: Math.PI / 2, phi: Math.PI / 2, radius: 7.5 },
-      lateral:    { theta: 0.08,        phi: Math.PI / 2, radius: 8.5 },
+      frontal:    { theta: Math.PI / 2, phi: Math.PI / 2, radius: 6.5 },
+      lateral:    { theta: 0.08,        phi: Math.PI / 2, radius: 6.5 },
       superior:   { theta: Math.PI / 2, phi: 0.22,        radius: 12 },
-      isometrica: { theta: Math.atan2(6, 4), phi: 1.1,    radius: 8.5 }
+      isometrica: { theta: Math.atan2(5, 3), phi: 1.05,   radius: 7.2 }
     };
     function applyView(name) {
       var v = views[name];
@@ -460,6 +460,10 @@
     }
     var toggleLabels = document.getElementById('toggle-labels');
     if (toggleLabels) {
+      // Labels on by default
+      labelsVisible = true;
+      toggleLabels.checked = true;
+      if (overlay) overlay.style.display = 'block';
       toggleLabels.addEventListener('change', function () {
         labelsVisible = toggleLabels.checked;
         if (overlay) overlay.style.display = labelsVisible ? 'block' : 'none';
