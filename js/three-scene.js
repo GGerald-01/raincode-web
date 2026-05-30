@@ -38,9 +38,9 @@
     scene.background = new THREE.Color(0x080F08);
     scene.fog = new THREE.FogExp2(0x080F08, 0.022);
 
-    var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    var camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
     camera.position.set(0, 1.8, 5.2);
-    camera.lookAt(0, 1.8, 0);
+    camera.lookAt(0, 1.4, 0);
 
     // ============================================================
     // LIGHTING — product render, not dramatic exterior
@@ -397,8 +397,8 @@
     // ============================================================
     // CONTROLS (spherical orbit)
     // ============================================================
-    var target = new THREE.Vector3(0, 1.8, 0);
-    var sph = { radius: 7.2, theta: Math.atan2(5, 3), phi: 1.08 };
+    var target = new THREE.Vector3(0, 1.4, 0);
+    var sph = { radius: 5.8, theta: Math.PI / 2 - 0.65, phi: 1.12 };
     var autoRotate = !reduceMotion;
 
     var dragging = false, lastX = 0, lastY = 0;
@@ -433,10 +433,10 @@
     }, { passive: false });
 
     var views = {
-      frontal:    { theta: Math.PI / 2, phi: Math.PI / 2, radius: 6.5 },
-      lateral:    { theta: 0.08,        phi: Math.PI / 2, radius: 6.5 },
-      superior:   { theta: Math.PI / 2, phi: 0.22,        radius: 12 },
-      isometrica: { theta: Math.atan2(5, 3), phi: 1.08,   radius: 7.2 }
+      frontal:    { theta: Math.PI / 2,        phi: Math.PI / 2, radius: 5.8 },
+      lateral:    { theta: 0.08,               phi: 1.05,        radius: 6.0 },
+      superior:   { theta: Math.PI / 2,        phi: 0.25,        radius: 8.5 },
+      isometrica: { theta: Math.PI / 2 - 0.65, phi: 1.12,        radius: 5.8 }
     };
     function applyView(name) {
       var v = views[name];
