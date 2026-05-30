@@ -40,7 +40,7 @@
 
     var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
     camera.position.set(0, 1.8, 5.2);
-    camera.lookAt(0, 1.2, 0);
+    camera.lookAt(0, 1.8, 0);
 
     // ============================================================
     // LIGHTING — product render, not dramatic exterior
@@ -49,7 +49,7 @@
 
     // Overcast daylight key — cold
     var key = new THREE.DirectionalLight(0xd0e8ff, 1.4);
-    key.position.set(-3, 8, 5);
+    key.position.set(-1, 8, 7);
     key.castShadow = true;
     key.shadow.mapSize.set(2048, 2048);
     key.shadow.bias = -0.0002;
@@ -70,12 +70,12 @@
     scene.add(rim);
 
     // Module front glow
-    var modLight = new THREE.PointLight(0x38CC80, 1.1, 4.0);
+    var modLight = new THREE.PointLight(0x38CC80, 1.8, 4.0);
     modLight.position.set(0.5, 2.0, 2.5);
     scene.add(modLight);
 
     // RC Pure glow
-    var pureLight = new THREE.PointLight(0x4466ff, 0.55, 2.5);
+    var pureLight = new THREE.PointLight(0x4466ff, 0.9, 2.5);
     pureLight.position.set(0.5, 0.2, 2.5);
     scene.add(pureLight);
 
@@ -118,18 +118,18 @@
       return m;
     }
 
-    var GROUND_Y = -3.4;
+    var GROUND_Y = -3.6;
 
     // ============================================================
     // WALL / CONTEXT — large, dark, the module is anchored to it
     // ============================================================
-    scene.add(mesh(new THREE.BoxGeometry(9.0, 9.0, 0.12), M.wall, { pos: [0, 0.5, -0.95], receive: true }));
+    scene.add(mesh(new THREE.BoxGeometry(12.0, 10.0, 0.12), M.wall, { pos: [0, 0.5, -0.95], receive: true }));
     // Faux stucco horizontal grain lines (10, every 0.72)
     for (var wl = 0; wl < 10; wl++) {
-      scene.add(mesh(new THREE.BoxGeometry(9.0, 0.006, 0.006), M.wallLine, { pos: [0, -3.0 + wl * 0.72, -0.88] }));
+      scene.add(mesh(new THREE.BoxGeometry(12.0, 0.006, 0.006), M.wallLine, { pos: [0, -3.0 + wl * 0.72, -0.88] }));
     }
     // Base socle
-    scene.add(mesh(new THREE.BoxGeometry(9.0, 0.4, 0.22), M.socle, { pos: [0, -3.2, -0.85], receive: true }));
+    scene.add(mesh(new THREE.BoxGeometry(12.0, 0.4, 0.22), M.socle, { pos: [0, -3.15, -0.85], receive: true }));
 
     // ============================================================
     // HORIZONTAL GUTTER — main context element, runs along the wall
@@ -347,10 +347,10 @@
     // ============================================================
     var rainMat = new THREE.MeshStandardMaterial({ color: 0xaaccee, transparent: true, opacity: 0.85, emissive: 0x334455, emissiveIntensity: 0.1 });
     var raindrops = [];
-    for (var ri = 0; ri < 60; ri++) {
+    for (var ri = 0; ri < 80; ri++) {
       var drop = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.004, 0.18, 6), rainMat);
       drop.rotation.z = -0.15; // wind-blown tilt
-      drop.position.set((Math.random() - 0.5) * 6, 5 + Math.random() * 3, -0.5 + Math.random() * 2);
+      drop.position.set((Math.random() - 0.5) * 10, 6 + Math.random() * 4, -0.5 + Math.random() * 2);
       drop.userData.speed = 0.06 + Math.random() * 0.04;
       scene.add(drop);
       raindrops.push(drop);
@@ -359,7 +359,7 @@
     // ============================================================
     // GROUND — matte, no specular reflection plane
     // ============================================================
-    scene.add(mesh(new THREE.PlaneGeometry(14, 14),
+    scene.add(mesh(new THREE.PlaneGeometry(30, 30),
       new THREE.MeshStandardMaterial({ color: 0x0d1210, roughness: 0.85, metalness: 0.0 }),
       { pos: [0, GROUND_Y, 0], rot: [-Math.PI / 2, 0, 0], receive: true }));
 
@@ -397,8 +397,8 @@
     // ============================================================
     // CONTROLS (spherical orbit)
     // ============================================================
-    var target = new THREE.Vector3(0, 1.5, 0);
-    var sph = { radius: 7.2, theta: Math.atan2(5, 3), phi: 1.05 };
+    var target = new THREE.Vector3(0, 1.8, 0);
+    var sph = { radius: 7.2, theta: Math.atan2(5, 3), phi: 1.08 };
     var autoRotate = !reduceMotion;
 
     var dragging = false, lastX = 0, lastY = 0;
@@ -436,7 +436,7 @@
       frontal:    { theta: Math.PI / 2, phi: Math.PI / 2, radius: 6.5 },
       lateral:    { theta: 0.08,        phi: Math.PI / 2, radius: 6.5 },
       superior:   { theta: Math.PI / 2, phi: 0.22,        radius: 12 },
-      isometrica: { theta: Math.atan2(5, 3), phi: 1.05,   radius: 7.2 }
+      isometrica: { theta: Math.atan2(5, 3), phi: 1.08,   radius: 7.2 }
     };
     function applyView(name) {
       var v = views[name];
@@ -524,9 +524,9 @@
         var d = raindrops[i];
         d.position.y -= d.userData.speed;
         d.position.x += 0.001;
-        if (d.position.y < -2.0) {
-          d.position.y = 5 + Math.random() * 3;
-          d.position.x = (Math.random() - 0.5) * 6;
+        if (d.position.y < -3.0) {
+          d.position.y = 6 + Math.random() * 4;
+          d.position.x = (Math.random() - 0.5) * 10;
           d.position.z = -0.5 + Math.random() * 2;
         }
       }
