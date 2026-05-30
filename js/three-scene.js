@@ -45,10 +45,10 @@
     // ============================================================
     // LIGHTING — dramatic, directional, dark
     // ============================================================
-    scene.add(new THREE.AmbientLight(0x0a1a10, 0.35));
+    scene.add(new THREE.AmbientLight(0x1a2a1a, 0.5));
 
     // Main "rain sky" key light — cold bluish winter overcast
-    var key = new THREE.DirectionalLight(0xb8d4ff, 1.8);
+    var key = new THREE.DirectionalLight(0xb8d4ff, 1.2);
     key.position.set(-4, 12, 3);
     key.castShadow = true;
     key.shadow.mapSize.set(2048, 2048);
@@ -66,18 +66,18 @@
     rim.position.set(3, 2, -6);
     scene.add(rim);
 
-    // Module front fill — the signature green glow
-    var modLight = new THREE.PointLight(0x38CC80, 2.5, 5);
+    // Module front fill — the signature green glow (tamed)
+    var modLight = new THREE.PointLight(0x38CC80, 0.9, 3.5);
     modLight.position.set(0.3, 2.0, 2.0);
     scene.add(modLight);
 
     // RC Pure fill
-    var pureLight = new THREE.PointLight(0x4466ff, 1.2, 3);
+    var pureLight = new THREE.PointLight(0x4466ff, 0.6, 2.5);
     pureLight.position.set(0.3, 0.2, 1.8);
     scene.add(pureLight);
 
     // Rain spotlight cone from above
-    var rainSpot = new THREE.SpotLight(0x88aacc, 0.8, 0, 0.3, 0.5, 1.5);
+    var rainSpot = new THREE.SpotLight(0x334455, 0.25, 0, 0.3, 0.5, 1.5);
     rainSpot.position.set(0, 14, 2);
     rainSpot.target.position.set(0, 3, 0);
     scene.add(rainSpot);
@@ -111,7 +111,7 @@
       bracket: new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.6,  metalness: 0.3 }),
       hose:    new THREE.MeshStandardMaterial({ color: 0x1a4a8a, roughness: 0.55, metalness: 0.1 }),
       ground:  new THREE.MeshStandardMaterial({ color: 0x0a0f0a, roughness: 0.15, metalness: 0.05 }),
-      puddle:  new THREE.MeshStandardMaterial({ color: 0x1a3a2a, roughness: 0.1,  metalness: 0.1, transparent: true, opacity: 0.12 }),
+      puddle:  new THREE.MeshStandardMaterial({ color: 0x1a3a2a, roughness: 0.1,  metalness: 0.1, transparent: true, opacity: 0.04 }),
       splash:  new THREE.MeshStandardMaterial({ color: 0x88bbdd, transparent: true, opacity: 0.35 }),
       hosePool:new THREE.MeshStandardMaterial({ color: 0x1a4a6a, transparent: true, opacity: 0.4 }),
       uvCore:  new THREE.MeshStandardMaterial({ color: 0xcc88ff, emissive: 0x8844cc, emissiveIntensity: 1.2, transparent: true, opacity: 0.7 })
@@ -132,11 +132,11 @@
     // ============================================================
     // WALL / CONTEXT — narrow, dark, recessive
     // ============================================================
-    scene.add(mesh(new THREE.BoxGeometry(4.5, 7.5, 0.12), M.wall, { pos: [0, 0.8, -1.0], receive: true }));
+    scene.add(mesh(new THREE.BoxGeometry(5.5, 8.0, 0.12), M.wall, { pos: [0, 0.5, -1.05], receive: true }));
     // Faux stucco horizontal grain lines
     for (var wl = 0; wl < 8; wl++) {
       var wy = -2.5 + (5.0 * wl) / 7;
-      scene.add(mesh(new THREE.BoxGeometry(4.5, 0.008, 0.005), M.wallLine, { pos: [0, wy, -0.93] }));
+      scene.add(mesh(new THREE.BoxGeometry(5.5, 0.008, 0.005), M.wallLine, { pos: [0, wy, -0.98] }));
     }
     // Base socle
     scene.add(mesh(new THREE.BoxGeometry(4.5, 0.35, 0.18), M.socle, { pos: [0, -2.6, -0.93], receive: true }));
@@ -144,34 +144,32 @@
     // ============================================================
     // ROOF — smaller, steeper, darker terracotta
     // ============================================================
-    scene.add(mesh(new THREE.BoxGeometry(3.2, 0.1, 1.8), M.roof, { pos: [-1.2, 4.95, -0.4], rot: [0, 0, 0.38], cast: true }));
-    scene.add(mesh(new THREE.BoxGeometry(3.2, 0.1, 1.8), M.roof, { pos: [1.2, 4.95, -0.4], rot: [0, 0, -0.38], cast: true }));
-    // Ridge cap
-    scene.add(mesh(new THREE.BoxGeometry(2.2, 0.18, 0.42), M.ridge, { pos: [0, 5.55, -0.4], cast: true }));
-    // Lateral edge battens
-    scene.add(mesh(new THREE.BoxGeometry(0.06, 1.8, 1.8), M.ridge, { pos: [-2.5, 4.62, -0.4], rot: [0, 0, 0.38] }));
-    scene.add(mesh(new THREE.BoxGeometry(0.06, 1.8, 1.8), M.ridge, { pos: [2.5, 4.62, -0.4], rot: [0, 0, -0.38] }));
+    scene.add(mesh(new THREE.BoxGeometry(3.4, 0.1, 2.0), M.roof, { pos: [-1.35, 5.1, -0.5], rot: [0, 0, 0.38], cast: true }));
+    scene.add(mesh(new THREE.BoxGeometry(3.4, 0.1, 2.0), M.roof, { pos: [1.35, 5.1, -0.5], rot: [0, 0, -0.38], cast: true }));
+    // Ridge cap — covers the join between the two slopes
+    scene.add(mesh(new THREE.BoxGeometry(0.2, 0.2, 2.0), M.ridge, { pos: [0, 5.58, -0.5], cast: true }));
 
     // ============================================================
     // DOWNPIPE + bracket + 3-segment elbow
     // ============================================================
-    scene.add(mesh(new THREE.CylinderGeometry(0.11, 0.11, 1.8, 18), M.pvc, { pos: [-1.45, 4.35, 0], cast: true }));
+    // Vertical downpipe — aligned under the ridge
+    scene.add(mesh(new THREE.CylinderGeometry(0.11, 0.11, 1.8, 18), M.pvc, { pos: [0, 4.1, 0.0], cast: true }));
     // Wall bracket
-    scene.add(mesh(new THREE.BoxGeometry(0.35, 0.06, 0.08), M.bracket, { pos: [-1.45, 3.5, -0.4] }));
-    scene.add(mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.35, 8), M.bracket, { pos: [-1.45, 3.5, -0.22], rot: [Math.PI / 2, 0, 0] }));
-    // 3-segment elbow curving to the module top
-    scene.add(mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.5, 16), M.pvc, { pos: [-1.3, 3.5, 0], rot: [0, 0, 0.5], cast: true }));
-    scene.add(mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.45, 16), M.pvc, { pos: [-0.95, 3.32, 0], rot: [0, 0, 0.95], cast: true }));
-    scene.add(mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.4, 16), M.pvc, { pos: [-0.5, 3.45, 0], rot: [0, 0, 0.2], cast: true }));
+    scene.add(mesh(new THREE.BoxGeometry(0.35, 0.06, 0.08), M.bracket, { pos: [0, 4.0, -0.4] }));
+    scene.add(mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.35, 8), M.bracket, { pos: [0, 4.0, -0.22], rot: [Math.PI / 2, 0, 0] }));
+    // Single inclined elbow into the module
+    scene.add(mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.4, 12), M.pvc, { pos: [0, 3.15, 0.18], rot: [0.5, 0, 0], cast: true }));
+    // Final connector down to the module top
+    scene.add(mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.15, 12), M.pvc, { pos: [0, 2.95, 0.3], cast: true }));
     // Gutter along the eave
-    scene.add(mesh(new THREE.BoxGeometry(2.4, 0.16, 0.36), M.pvc, { pos: [-0.5, 4.5, 0], cast: true }));
+    scene.add(mesh(new THREE.BoxGeometry(2.4, 0.16, 0.36), M.pvc, { pos: [0, 4.5, 0], cast: true }));
 
     // ============================================================
     // BASE MODULE GROUP
     // ============================================================
     var baseModule = new THREE.Group();
-    baseModule.position.set(0, 2.2, 0);
-    var baseBaseY = 2.2;
+    baseModule.position.set(0, 1.9, 0.15);
+    var baseBaseY = 1.9;
 
     var W = 1.4, H = 2.4, D = 1.12;
     baseModule.add(mesh(new THREE.BoxGeometry(W, H, D), M.hdpe, { cast: true, receive: true }));
@@ -279,7 +277,7 @@
     // RC PURE MODULE GROUP — pulled up tight against the base
     // ============================================================
     var pureModule = new THREE.Group();
-    pureModule.position.set(0, 0.18, 0);
+    pureModule.position.set(0, 0.18, 0.15);
 
     var PW = 1.25, PH = 0.85, PD = 1.05;
     pureModule.add(mesh(new THREE.BoxGeometry(PW, PH, PD), M.navy, { cast: true, receive: true }));
