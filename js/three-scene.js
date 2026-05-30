@@ -36,52 +36,45 @@
     // ============================================================
     var scene = new THREE.Scene();
     scene.background = new THREE.Color(0x080F08);
-    scene.fog = new THREE.FogExp2(0x080F08, 0.018);
+    scene.fog = new THREE.FogExp2(0x080F08, 0.022);
 
     var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-    camera.position.set(5.5, 4.2, 7.5);
+    camera.position.set(0, 1.8, 7.5);
     camera.lookAt(0, 1.2, 0);
 
     // ============================================================
-    // LIGHTING — dramatic, directional, dark
+    // LIGHTING — product render, not dramatic exterior
     // ============================================================
-    scene.add(new THREE.AmbientLight(0x1a2a1a, 0.5));
+    scene.add(new THREE.AmbientLight(0x1a2a1a, 0.55));
 
-    // Main "rain sky" key light — cold bluish winter overcast
-    var key = new THREE.DirectionalLight(0xb8d4ff, 1.2);
-    key.position.set(-4, 12, 3);
+    // Overcast daylight key — cold
+    var key = new THREE.DirectionalLight(0xd0e8ff, 1.1);
+    key.position.set(-3, 8, 5);
     key.castShadow = true;
-    key.shadow.mapSize.set(2048, 2048);
+    key.shadow.mapSize.set(1024, 1024);
     key.shadow.bias = -0.0003;
     key.shadow.camera.near = 1;
-    key.shadow.camera.far = 50;
+    key.shadow.camera.far = 40;
     key.shadow.camera.left = -6;
     key.shadow.camera.right = 6;
     key.shadow.camera.top = 10;
-    key.shadow.camera.bottom = -4;
+    key.shadow.camera.bottom = -5;
     scene.add(key);
 
-    // Warm green rim — separates module from the dark background
-    var rim = new THREE.DirectionalLight(0x38CC80, 0.6);
-    rim.position.set(3, 2, -6);
+    // Soft green rim
+    var rim = new THREE.DirectionalLight(0x38CC80, 0.35);
+    rim.position.set(4, 2, -4);
     scene.add(rim);
 
-    // Module front fill — the signature green glow (tamed)
-    var modLight = new THREE.PointLight(0x38CC80, 0.9, 3.5);
-    modLight.position.set(0.3, 2.0, 2.0);
+    // Module front glow
+    var modLight = new THREE.PointLight(0x38CC80, 1.1, 4.0);
+    modLight.position.set(0.5, 2.0, 2.5);
     scene.add(modLight);
 
-    // RC Pure fill
-    var pureLight = new THREE.PointLight(0x4466ff, 0.6, 2.5);
-    pureLight.position.set(0.3, 0.2, 1.8);
+    // RC Pure glow
+    var pureLight = new THREE.PointLight(0x4466ff, 0.55, 2.5);
+    pureLight.position.set(0.5, 0.2, 2.5);
     scene.add(pureLight);
-
-    // Rain spotlight cone from above
-    var rainSpot = new THREE.SpotLight(0x334455, 0.25, 0, 0.3, 0.5, 1.5);
-    rainSpot.position.set(0, 14, 2);
-    rainSpot.target.position.set(0, 3, 0);
-    scene.add(rainSpot);
-    scene.add(rainSpot.target);
 
     // ============================================================
     // MATERIALS
@@ -127,42 +120,53 @@
       return m;
     }
 
-    var GROUND_Y = -2.9;
+    var GROUND_Y = -3.4;
 
     // ============================================================
-    // WALL / CONTEXT — narrow, dark, recessive
+    // WALL / CONTEXT — large, dark, the module is anchored to it
     // ============================================================
-    scene.add(mesh(new THREE.BoxGeometry(5.5, 8.0, 0.12), M.wall, { pos: [0, 0.5, -1.05], receive: true }));
-    // Faux stucco horizontal grain lines
-    for (var wl = 0; wl < 8; wl++) {
-      var wy = -2.5 + (5.0 * wl) / 7;
-      scene.add(mesh(new THREE.BoxGeometry(5.5, 0.008, 0.005), M.wallLine, { pos: [0, wy, -0.98] }));
+    scene.add(mesh(new THREE.BoxGeometry(7.0, 9.0, 0.12), M.wall, { pos: [0, 0.5, -0.95], receive: true }));
+    // Faux stucco horizontal grain lines (10, every 0.72)
+    for (var wl = 0; wl < 10; wl++) {
+      scene.add(mesh(new THREE.BoxGeometry(7.0, 0.006, 0.006), M.wallLine, { pos: [0, -3.0 + wl * 0.72, -0.88] }));
     }
     // Base socle
-    scene.add(mesh(new THREE.BoxGeometry(4.5, 0.35, 0.18), M.socle, { pos: [0, -2.6, -0.93], receive: true }));
+    scene.add(mesh(new THREE.BoxGeometry(7.0, 0.4, 0.22), M.socle, { pos: [0, -3.2, -0.85], receive: true }));
 
     // ============================================================
-    // ROOF — smaller, steeper, darker terracotta
+    // HORIZONTAL GUTTER — main context element, runs along the wall
     // ============================================================
-    scene.add(mesh(new THREE.BoxGeometry(3.4, 0.1, 2.0), M.roof, { pos: [-1.35, 5.1, -0.5], rot: [0, 0, 0.38], cast: true }));
-    scene.add(mesh(new THREE.BoxGeometry(3.4, 0.1, 2.0), M.roof, { pos: [1.35, 5.1, -0.5], rot: [0, 0, -0.38], cast: true }));
-    // Ridge cap — covers the join between the two slopes
-    scene.add(mesh(new THREE.BoxGeometry(0.2, 0.2, 2.0), M.ridge, { pos: [0, 5.58, -0.5], cast: true }));
+    // Lying cylinder along the top of the wall
+    scene.add(mesh(new THREE.CylinderGeometry(0.14, 0.14, 5.5, 20),
+      new THREE.MeshStandardMaterial({ color: 0x7a8288, roughness: 0.55, metalness: 0.3 }),
+      { pos: [0, 3.6, -0.3], rot: [0, 0, Math.PI / 2], cast: true }));
+    // End caps
+    scene.add(mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.04, 20),
+      new THREE.MeshStandardMaterial({ color: 0x606870, roughness: 0.55, metalness: 0.3 }),
+      { pos: [-2.75, 3.6, -0.3], rot: [0, 0, Math.PI / 2] }));
+    scene.add(mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.04, 20),
+      new THREE.MeshStandardMaterial({ color: 0x606870, roughness: 0.55, metalness: 0.3 }),
+      { pos: [2.75, 3.6, -0.3], rot: [0, 0, Math.PI / 2] }));
+    // Gutter wall brackets
+    var gBracketMat = new THREE.MeshStandardMaterial({ color: 0x606870, roughness: 0.55, metalness: 0.3 });
+    [-1.8, 0.3, 1.8].forEach(function (gx) {
+      scene.add(mesh(new THREE.BoxGeometry(0.06, 0.35, 0.65), gBracketMat, { pos: [gx, 3.6, -0.62] }));
+    });
+    // Vertical downpipe from the gutter — slightly right of center
+    scene.add(mesh(new THREE.CylinderGeometry(0.085, 0.085, 1.2, 16),
+      new THREE.MeshStandardMaterial({ color: 0x8a9098, roughness: 0.55, metalness: 0.2 }),
+      { pos: [0.3, 2.9, -0.25], cast: true }));
+    // Elbow into the module
+    scene.add(mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.55, 12), M.pvc, { pos: [0.15, 2.25, 0.1], rot: [0.7, 0, -0.2], cast: true }));
 
     // ============================================================
-    // DOWNPIPE + bracket + 3-segment elbow
+    // MOUNTING BRACKETS — module is bolted to the wall
     // ============================================================
-    // Vertical downpipe — aligned under the ridge
-    scene.add(mesh(new THREE.CylinderGeometry(0.11, 0.11, 1.8, 18), M.pvc, { pos: [0, 4.1, 0.0], cast: true }));
-    // Wall bracket
-    scene.add(mesh(new THREE.BoxGeometry(0.35, 0.06, 0.08), M.bracket, { pos: [0, 4.0, -0.4] }));
-    scene.add(mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.35, 8), M.bracket, { pos: [0, 4.0, -0.22], rot: [Math.PI / 2, 0, 0] }));
-    // Single inclined elbow into the module
-    scene.add(mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.4, 12), M.pvc, { pos: [0, 3.15, 0.18], rot: [0.5, 0, 0], cast: true }));
-    // Final connector down to the module top
-    scene.add(mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.15, 12), M.pvc, { pos: [0, 2.95, 0.3], cast: true }));
-    // Gutter along the eave
-    scene.add(mesh(new THREE.BoxGeometry(2.4, 0.16, 0.36), M.pvc, { pos: [0, 4.5, 0], cast: true }));
+    var mountMat = new THREE.MeshStandardMaterial({ color: 0x505858, roughness: 0.4, metalness: 0.7 });
+    scene.add(mesh(new THREE.BoxGeometry(0.12, 0.08, 0.85), mountMat, { pos: [0, 2.95, -0.45], cast: true }));
+    scene.add(mesh(new THREE.BoxGeometry(0.12, 0.08, 0.85), mountMat, { pos: [0, 0.85, -0.45], cast: true }));
+    scene.add(mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.08, 8), M.steel, { pos: [0, 2.95, -0.88], rot: [Math.PI / 2, 0, 0] }));
+    scene.add(mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.08, 8), M.steel, { pos: [0, 0.85, -0.88], rot: [Math.PI / 2, 0, 0] }));
 
     // ============================================================
     // BASE MODULE GROUP
@@ -195,6 +199,17 @@
     for (var g = 0; g < 6; g++) {
       baseModule.add(mesh(new THREE.BoxGeometry(W - 0.1, 0.02, 0.02), M.hdpeDark, { pos: [0, -1.0 + g * 0.4, -D / 2 - 0.005] }));
     }
+
+    // Pronounced lateral ribs — the signature dented profile (5 per side)
+    [-0.38, -0.19, 0, 0.19, 0.38].forEach(function (rz) {
+      baseModule.add(mesh(new THREE.BoxGeometry(0.08, 2.2, 0.18), M.hdpeDark, { pos: [-0.73, 0, rz] }));
+      baseModule.add(mesh(new THREE.BoxGeometry(0.08, 2.2, 0.18), M.hdpeDark, { pos: [0.73, 0, rz] }));
+    });
+
+    // Wall-mount bolts (4 corners, larger) — anchor the module to the brackets
+    [[-0.6, 1.0], [0.6, 1.0], [-0.6, -1.0], [0.6, -1.0]].forEach(function (b) {
+      baseModule.add(mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.12, 10), M.steel, { pos: [b[0], b[1], -D / 2 - 0.06], rot: [Math.PI / 2, 0, 0] }));
+    });
 
     // Level window: steel frame + tinted glass + visible water (larger)
     baseModule.add(mesh(new THREE.BoxGeometry(0.66, 0.86, 0.04), M.steel, { pos: [-0.4, -0.1, D / 2 + 0.005] }));
@@ -253,10 +268,12 @@
       baseModule.add(mesh(new THREE.BoxGeometry(0.012, 0.06, 0.012), M.hdpeDark, { pos: [b[0], b[1], D / 2 + 0.04] }));
     });
 
-    // Outlet valve 3/4" + lever
-    baseModule.add(mesh(new THREE.BoxGeometry(0.28, 0.14, 0.28), M.hdpeDark, { pos: [0, -H / 2 + 0.06, 0.2] }));
-    baseModule.add(mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.2, 16), M.steel, { pos: [0, -H / 2 + 0.06, 0.42], rot: [Math.PI / 2, 0, 0] }));
-    baseModule.add(mesh(new THREE.BoxGeometry(0.05, 0.22, 0.05), M.accent, { pos: [0, -H / 2 + 0.18, 0.42] }));
+    // Outlet faucet-style valve — prominent, front-facing (sketch look)
+    baseModule.add(mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.22, 16), M.steel, { pos: [0, -1.35, 0.45], rot: [Math.PI / 2, 0, 0] }));
+    // Faucet handle at 45deg ("closed")
+    baseModule.add(mesh(new THREE.BoxGeometry(0.22, 0.055, 0.055), M.accent, { pos: [0, -1.27, 0.52], rot: [0, 0, Math.PI / 4] }));
+    // Nozzle
+    baseModule.add(mesh(new THREE.CylinderGeometry(0.045, 0.055, 0.12, 12), M.steel, { pos: [0, -1.35, 0.62], rot: [Math.PI / 2, 0, 0] }));
 
     scene.add(baseModule);
 
@@ -306,15 +323,17 @@
     // OUTLET HOSE — reaches the ground + clamps + pool
     // ============================================================
     var hoseCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0.0, -0.7, 0.42),
-      new THREE.Vector3(-0.35, -1.05, 0.5),
-      new THREE.Vector3(-0.65, -1.4, 0.35),
-      new THREE.Vector3(-0.7, -1.85, 0.1),
-      new THREE.Vector3(-0.5, -2.25, -0.05),
-      new THREE.Vector3(-0.2, -2.55, 0.05),
-      new THREE.Vector3(0.1, -2.78, 0.25)
+      new THREE.Vector3(0, -1.35, 0.72),      // sale de la boquilla
+      new THREE.Vector3(0.1, -1.6, 0.85),     // pequeña curva de salida
+      new THREE.Vector3(0.3, -2.0, 0.75),     // empieza a caer
+      new THREE.Vector3(0.5, -2.5, 0.5),      // cae verticalmente
+      new THREE.Vector3(0.6, -3.0, 0.25),     // llega cerca del suelo
+      new THREE.Vector3(0.4, -3.3, 0.1),      // toca el suelo
+      new THREE.Vector3(0.0, -3.4, 0.3),      // primera vuelta del enrollado
+      new THREE.Vector3(-0.3, -3.35, 0.55),   // segunda vuelta
+      new THREE.Vector3(-0.15, -3.3, 0.75)    // final enrollado
     ]);
-    var hose = new THREE.Mesh(new THREE.TubeGeometry(hoseCurve, 32, 0.055, 10, false), M.hose);
+    var hose = new THREE.Mesh(new THREE.TubeGeometry(hoseCurve, 40, 0.055, 10, false), M.hose);
     hose.castShadow = true;
     scene.add(hose);
     [0.25, 0.55].forEach(function (t) {
@@ -324,9 +343,6 @@
       clamp.lookAt(p.x + tan.x, p.y + tan.y, p.z + tan.z);
       scene.add(clamp);
     });
-    // Pool where the hose ends (animated)
-    var hosePool = mesh(new THREE.CircleGeometry(0.15, 12), M.hosePool, { pos: [0.1, GROUND_Y + 0.01, 0.25], rot: [-Math.PI / 2, 0, 0] });
-    scene.add(hosePool);
 
     // ============================================================
     // RAIN — 60 visible elongated drops
@@ -336,27 +352,18 @@
     for (var ri = 0; ri < 60; ri++) {
       var drop = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.004, 0.18, 6), rainMat);
       drop.rotation.z = -0.15; // wind-blown tilt
-      drop.position.set((Math.random() - 0.5) * 6, 7 + Math.random() * 2, -1 + Math.random() * 2.5);
+      drop.position.set((Math.random() - 0.5) * 6, 5 + Math.random() * 3, -0.5 + Math.random() * 2);
       drop.userData.speed = 0.06 + Math.random() * 0.04;
       scene.add(drop);
       raindrops.push(drop);
     }
-    // Static splashes around the module
-    for (var sp = 0; sp < 8; sp++) {
-      var ang = (sp / 8) * Math.PI * 2;
-      var sr = 0.8 + Math.random() * 0.6;
-      scene.add(mesh(new THREE.CircleGeometry(0.06, 8), M.splash, {
-        pos: [Math.cos(ang) * sr, GROUND_Y + 0.01, 0.3 + Math.sin(ang) * sr * 0.5],
-        rot: [-Math.PI / 2, 0, 0]
-      }));
-    }
 
     // ============================================================
-    // GROUND — wet, reflective + puddle reflection under module
+    // GROUND — matte, no specular reflection plane
     // ============================================================
-    scene.add(mesh(new THREE.PlaneGeometry(18, 18), M.ground, { pos: [0, GROUND_Y, 0], rot: [-Math.PI / 2, 0, 0], receive: true }));
-    var puddle = mesh(new THREE.PlaneGeometry(8, 6), M.puddle, { pos: [0, GROUND_Y + 0.01, 0.5], rot: [-Math.PI / 2, 0, 0] });
-    scene.add(puddle);
+    scene.add(mesh(new THREE.PlaneGeometry(14, 14),
+      new THREE.MeshStandardMaterial({ color: 0x0d1210, roughness: 0.85, metalness: 0.0 }),
+      { pos: [0, GROUND_Y, 0], rot: [-Math.PI / 2, 0, 0], receive: true }));
 
     // moduleGlow — soft pulsing
     var moduleGlow = new THREE.PointLight(0x38CC80, 0.6, 6);
@@ -393,7 +400,7 @@
     // CONTROLS (spherical orbit)
     // ============================================================
     var target = new THREE.Vector3(0, 1.5, 0);
-    var sph = { radius: 10.5, theta: Math.atan2(7.5, 5.5), phi: 1.05 };
+    var sph = { radius: 9.5, theta: Math.atan2(6, 4), phi: 1.1 };
     var autoRotate = !reduceMotion;
 
     var dragging = false, lastX = 0, lastY = 0;
@@ -428,10 +435,10 @@
     }, { passive: false });
 
     var views = {
-      frontal:    { theta: Math.PI / 2, phi: Math.PI / 2, radius: 9.5 },
-      lateral:    { theta: 0.05,        phi: Math.PI / 2, radius: 9.5 },
+      frontal:    { theta: Math.PI / 2, phi: Math.PI / 2, radius: 8.5 },
+      lateral:    { theta: 0.08,        phi: Math.PI / 2, radius: 8.5 },
       superior:   { theta: Math.PI / 2, phi: 0.22,        radius: 12 },
-      isometrica: { theta: Math.atan2(7.5, 5.5), phi: 1.05, radius: 10.5 }
+      isometrica: { theta: Math.atan2(6, 4), phi: 1.1,    radius: 9.5 }
     };
     function applyView(name) {
       var v = views[name];
@@ -510,14 +517,15 @@
       camera.position.z = target.z + sph.radius * Math.sin(sph.phi) * Math.sin(sph.theta);
       camera.lookAt(target);
 
-      // Rain
+      // Rain — falls in front of the wall, gentle wind drift
       for (var i = 0; i < raindrops.length; i++) {
         var d = raindrops[i];
         d.position.y -= d.userData.speed;
-        if (d.position.y < 2.5) {
-          d.position.y = 7 + Math.random() * 2;
+        d.position.x += 0.001;
+        if (d.position.y < -2.0) {
+          d.position.y = 5 + Math.random() * 3;
           d.position.x = (Math.random() - 0.5) * 6;
-          d.position.z = -1 + Math.random() * 2.5;
+          d.position.z = -0.5 + Math.random() * 2;
         }
       }
 
@@ -529,11 +537,6 @@
       water.scale.y = ws;
       water.material.opacity = 0.45 + Math.sin(t * 0.7) * 0.09;
       windowWater.scale.y = ws;
-
-      // Puddle reflection gentle breathing
-      var psc = 1 + Math.sin(t * 0.5) * 0.05;
-      puddle.scale.set(psc, psc, 1);
-      hosePool.scale.set(psc, psc, 1);
 
       // Green LED pulse + occasional flicker
       var lp = (Math.sin(t * 2.5) + 1) / 2;
